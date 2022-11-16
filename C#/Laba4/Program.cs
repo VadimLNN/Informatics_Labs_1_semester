@@ -33,43 +33,68 @@ namespace Laba4
         }
         // генерим пaроль
 
-
-        static void Main(string[] args)
+        static string Encoded(string s, int sh)
         {
-            //Console.WriteLine(GenPassword());
+            string result = "";
 
+            char[] encoded = new char[s.Length];
 
+            for (int i = 0; i < s.Length; i++)
+                encoded[i] = (char)((((byte)s[i]) + sh) % 256);
 
-            Console.WriteLine("Enter text:");
-            string text = Console.ReadLine();
+            for (int i = 0; i < s.Length; i++)
+                result = result + encoded[i];
 
-            Console.Write("Enter shift:");
-            int sh = int.Parse(Console.ReadLine());
+            return result;
+        }
+        // шифрование по цезарю
 
-            // шифрование по цезарю
-            char[] encoded = new char[text.Length];
+        static string Decoded(string s, int sh)
+        {
+            string result = "";
 
-            for (int i = 0; i < text.Length; i++)
-                encoded[i] = (char)((((byte)text[i]) + sh) % 256);
+            char[] decoded = new char[s.Length];
 
-            // дешифрование по цезарю
-            char[] decoded = new char[text.Length];
-
-            for (int i = 0; i < encoded.Length; i++)
+            for (int i = 0; i < s.Length; i++)
             {
-                int t = (int)((byte)(encoded[i] - sh));
+                int t = (int)((byte)(s[i] - sh));
 
                 if (t < 0) t += 255;
 
                 decoded[i] = (char)t;
             }
 
-            // вывод на экран
-            for (int i = 0; i < encoded.Length; i++)
-                Console.Write(encoded[i]);
-            Console.WriteLine();
-            for (int i = 0; i < decoded.Length; i++)
-                Console.Write(decoded[i]);
+            for (int i = 0; i < s.Length; i++)
+                result = result + decoded[i];
+
+            return result;
+        }
+        // дешифрование по цезарю
+
+        static void Main(string[] args)
+        {
+            //Console.WriteLine(GenPassword());
+
+            // ввод текста 
+            Console.WriteLine("Enter text:");
+            string text = Console.ReadLine();
+
+            // https://learn.microsoft.com/ru-ru/troubleshoot/developer/visualstudio/csharp/language-compilers/read-write-text-file
+            // документация: чтение и запись 
+
+
+            // ввод сдвига
+            Console.Write("Enter shift:");
+            int sh = int.Parse(Console.ReadLine());
+            
+            // шифровка 
+            string encoded = Encoded(text, sh);
+            // дешифровка
+            string decoded = Decoded(encoded, sh);
+            
+            // вывод
+            Console.WriteLine(encoded);
+            Console.WriteLine(decoded);
 
             Console.ReadKey();
         }
