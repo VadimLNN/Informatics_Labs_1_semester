@@ -212,81 +212,71 @@ namespace Laba3
             return result;
         }
         // взятие порядка числа 
-        
+
         private void btn_to_bin_alg_Click(object sender, RoutedEventArgs e)
         {
             float n = float.Parse(txb_dec.Text);
 
+            // определение знака 
             string zn = n < 0 ? "1" : "0";
             if (zn == "1")
                 n *= -1;
 
-            string serial = take_order(n);
+            string serial = "", buf = "", dec_part = "", float_part = "";  
 
-            string buf = "", dec_part = "", float_part = "";
+            if (n >= 1)
+            {
+                byte a = (byte)((n * 10) / 10);     // взятие целой части
+                buf = BinToString(ByteToBin(a));    // перевод целой части в строку двоичного представления 
+                bool flag = false;
 
+                for (int i = 0; i < 8; i++)
+                {
+                    if (flag)
+                        dec_part = dec_part + buf[i];   // запись десятичной части без первого знака 
 
-            //if (n >= 1)
-            //{
-            //    byte a = (byte)((n * 10) / 10);     // взятие целой части
-            //    buf = BinToString(ByteToBin(a));    // перевод целой части в строку двоичного представления 
-            //    bool flag = false;
+                    if (buf[i] == '1')                  // нахождение порядка 
+                        flag = true;
+                }
+            }
 
-            //    for (int i = 0; i < 8; i++)
-            //    {
-            //        if (flag)
-            //            dec_part = dec_part + buf[i];   // запись десятичной части без первого знака 
+            if (n % 1 != 0)
+            {
+                int check = 0;
+                float v = n % 1;                                    // взятие десятичной части
+                for (int i = 0; i < (23 - dec_part.Length); i++)
+                {
+                    v *= 2;
 
-            //        if (buf[i] == '1')                  // нахождение порядка 
-            //        {
-            //            serial = BinToString(ByteToBin((byte)(8 - i + 1 + 127)));
-            //            flag = true;
-            //        }
-            //    }
-            //}
-           
-            //if (n % 1 != 0)
-            //{
-            //    int check = 0;
-            //    float v = n % 1;                                    // взятие десятичной части
-            //    for (int i = 0; i < (23 - dec_part.Length); i++)   
-            //    {
-            //        v *= 2;
+                    float_part = float_part + (v.ToString())[0];
 
-            //        float_part = float_part + (v.ToString())[0];
+                    if (v >= 1)
+                    {
+                        v -= 1;
+                        check++;
+                    }
 
-            //        if (v >= 1)
-            //        {
-            //            v -= 1;
-            //            check++;
-            //        }
-                    
-            //        if (check == 1)
-            //        {
-            //            check = (i + 1)*1000;
-            //        }
+                    if (check == 1)
+                        check = (i + 1) * 1000;
 
-
-            //    }
-
-            //    if (serial.Length < 1)
-            //    {
-            //        serial = BinToString(ByteToBin((byte)(-check + 127)));
-            //    }
-
-            //}
-            //else
-            //{
-            //    for (int i = 0; i < (23 - dec_part.Length); i++)
-            //        float_part = float_part + '0';
-            //}
+                }
+            }
+            else
+            {
+                for (int i = 0; i < (23 - dec_part.Length); i++)
+                    float_part = float_part + '0';
+            }
 
 
 
+            // определение мантисы
+            string mantisa = dec_part + float_part;
+            
+            // определение порядка 
+            serial = take_order(n);
 
 
-
-            txb_bin.Text = $"{zn}{serial}{dec_part}{float_part}";
+            txb_bin.Text = $"{zn}{serial}{mantisa}";
         }
         // реакция кнопки "To BIN alg"
 
