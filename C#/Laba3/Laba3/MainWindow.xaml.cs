@@ -163,8 +163,56 @@ namespace Laba3
 
             return r;
         }
+        // перевод массива байт в float
+
+        string take_order (float b)
+        {
+            string result = "", buf = "";
+            int por = 0; 
+
+            if (b >= 1) // порядок числа с целой частью
+            {
+                byte a = (byte)Math.Floor(b);       // взятие целой части
+                buf = BinToString(ByteToBin(a));    // перевод целой части в строку двоичного представления
+
+                for (int i = 0; i < 8; i++)         // поиск единицы
+                {
+                    if (buf[i] == '1')
+                    {
+                        por = 7-i;                  // порядок 8 - положение первой единицы  
+                        break;
+                    }
+                }
+                a = (byte)(por+127);
+                result = BinToString(ByteToBin(a));
+            }
+            else        // порядок числа без целой части
+            {
+                float bb = b;           
+                for (int i = 0; i < 8; i++)         // создание 8 первых знаков двоичного представления дроби
+                {
+                    bb *= 2;
+                    buf = buf + bb.ToString()[0];
+
+                    if (bb >= 1)
+                        bb--;
+                }
+
+                for (int i = 0; i < 8; i++)
+                    if (buf[i] == '1')
+                    {
+                        por = i + 1;
+                        break;
+                    }
+                        
+                result = BinToString(ByteToBin((byte)(-por + 127)));
+            }
 
 
+            return result;
+        }
+        // взятие порядка числа 
+        
         private void btn_to_bin_alg_Click(object sender, RoutedEventArgs e)
         {
             float n = float.Parse(txb_dec.Text);
@@ -173,63 +221,65 @@ namespace Laba3
             if (zn == "1")
                 n *= -1;
 
-            string serial = "", buf = "", dec_part = "", float_part = "";
+            string serial = take_order(n);
+
+            string buf = "", dec_part = "", float_part = "";
 
 
-            if (n >= 1)
-            {
-                byte a = (byte)((n * 10) / 10);     // взятие целой части
-                buf = BinToString(ByteToBin(a));    // перевод целой части в строку двоичного представления 
-                bool flag = false;
+            //if (n >= 1)
+            //{
+            //    byte a = (byte)((n * 10) / 10);     // взятие целой части
+            //    buf = BinToString(ByteToBin(a));    // перевод целой части в строку двоичного представления 
+            //    bool flag = false;
 
-                for (int i = 0; i < 8; i++)
-                {
-                    if (flag)
-                        dec_part = dec_part + buf[i];   // запись десятичной части без первого знака 
+            //    for (int i = 0; i < 8; i++)
+            //    {
+            //        if (flag)
+            //            dec_part = dec_part + buf[i];   // запись десятичной части без первого знака 
 
-                    if (buf[i] == '1')                  // нахождение порядка 
-                    {
-                        serial = BinToString(ByteToBin((byte)(8 - i + 1 + 127)));
-                        flag = true;
-                    }
-                }
-            }
+            //        if (buf[i] == '1')                  // нахождение порядка 
+            //        {
+            //            serial = BinToString(ByteToBin((byte)(8 - i + 1 + 127)));
+            //            flag = true;
+            //        }
+            //    }
+            //}
            
-            if (n % 1 != 0)
-            {
-                int check = 0;
-                float v = n % 1;                                    // взятие десятичной части
-                for (int i = 0; i < (23 - dec_part.Length); i++)   
-                {
-                    v *= 2;
+            //if (n % 1 != 0)
+            //{
+            //    int check = 0;
+            //    float v = n % 1;                                    // взятие десятичной части
+            //    for (int i = 0; i < (23 - dec_part.Length); i++)   
+            //    {
+            //        v *= 2;
 
-                    float_part = float_part + (v.ToString())[0];
+            //        float_part = float_part + (v.ToString())[0];
 
-                    if (v >= 1)
-                    {
-                        v -= 1;
-                        check++;
-                    }
+            //        if (v >= 1)
+            //        {
+            //            v -= 1;
+            //            check++;
+            //        }
                     
-                    if (check == 1)
-                    {
-                        check = (i + 1)*1000;
-                    }
+            //        if (check == 1)
+            //        {
+            //            check = (i + 1)*1000;
+            //        }
 
 
-                }
+            //    }
 
-                if (serial.Length < 1)
-                {
-                    serial = BinToString(ByteToBin((byte)(-check + 127)));
-                }
+            //    if (serial.Length < 1)
+            //    {
+            //        serial = BinToString(ByteToBin((byte)(-check + 127)));
+            //    }
 
-            }
-            else
-            {
-                for (int i = 0; i < (23 - dec_part.Length); i++)
-                    float_part = float_part + '0';
-            }
+            //}
+            //else
+            //{
+            //    for (int i = 0; i < (23 - dec_part.Length); i++)
+            //        float_part = float_part + '0';
+            //}
 
 
 
@@ -239,7 +289,6 @@ namespace Laba3
             txb_bin.Text = $"{zn}{serial}{dec_part}{float_part}";
         }
         // реакция кнопки "To BIN alg"
-
 
 
         private void btn_to_dec_alg_Click(object sender, RoutedEventArgs e)
