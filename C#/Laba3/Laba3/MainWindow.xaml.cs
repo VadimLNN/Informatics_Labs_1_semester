@@ -235,7 +235,7 @@ namespace Laba3
                     if (flag)
                         dec_part = dec_part + buf[i];   // запись десятичной части без первого знака 
 
-                    if (buf[i] == '1')                  // нахождение порядка 
+                    if (buf[i] == '1')                   
                         flag = true;
                 }
             }
@@ -251,14 +251,7 @@ namespace Laba3
                     float_part = float_part + (v.ToString())[0];
 
                     if (v >= 1)
-                    {
-                        v -= 1;
-                        check++;
-                    }
-
-                    if (check == 1)
-                        check = (i + 1) * 1000;
-
+                        v--;
                 }
             }
             else
