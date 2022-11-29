@@ -71,30 +71,45 @@ namespace Laba4
         }
         // дешифрование по цезарю
 
-        static void Main(string[] args)
+        static async Task Main(string[] args)
         {
             //Console.WriteLine(GenPassword());
 
             // ввод текста 
-            Console.WriteLine("Enter text:");
-            string text = Console.ReadLine();
-
-            // https://learn.microsoft.com/ru-ru/troubleshoot/developer/visualstudio/csharp/language-compilers/read-write-text-file
-            // документация: чтение и запись 
-
+            //Console.WriteLine("Enter text:");
+            //string text = Console.ReadLine();
 
             // ввод сдвига
-            Console.Write("Enter shift:");
-            int sh = int.Parse(Console.ReadLine());
-            
+            //Console.Write("Enter shift:");
+            //int sh = int.Parse(Console.ReadLine());
+
             // шифровка 
-            string encoded = Encoded(text, sh);
+            //string encoded = Encoded(text, sh);
             // дешифровка
-            string decoded = Decoded(encoded, sh);
-            
+            //string decoded = Decoded(encoded, sh);
+
             // вывод
-            Console.WriteLine(encoded);
-            Console.WriteLine(decoded);
+            //Console.WriteLine(encoded);
+            //Console.WriteLine(decoded);
+
+
+
+            string path = "note1.txt";
+            // асинхронное чтение
+            using (StreamReader reader = new StreamReader(path))
+            {
+                string text = await reader.ReadToEndAsync();
+                Console.WriteLine(text);
+            }
+
+
+
+            string path = "C:/Users/user/Desktop/HEI/Informatics/C#/Laba4/encoded.txt";
+            string text = "Hello World\nHello METANIT.COM";
+
+            // полная перезапись файла 
+            using (StreamWriter writer = new StreamWriter(path, false))
+                await writer.WriteLineAsync(text);
 
             Console.ReadKey();
         }
