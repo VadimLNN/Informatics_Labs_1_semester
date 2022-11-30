@@ -37,12 +37,13 @@ namespace Laba4
         {
             string result = "";
 
-            char[] encoded = new char[s.Length];
+            char[] encoded = new char[s.Length];        // массив символов зашифрованного текста 
 
             for (int i = 0; i < s.Length; i++)
-                encoded[i] = (char)((((byte)s[i]) + sh) % 256);
+                encoded[i] = (char)((((byte)s[i]) + sh) % 256); // преобразование ихначального символа в число == его порядок
+                                                                // в таблице в пределах 256 
 
-            for (int i = 0; i < s.Length; i++)
+            for (int i = 0; i < s.Length; i++)          // создание зашифрованной строки из массива чаров 
                 result = result + encoded[i];
 
             return result;
@@ -55,16 +56,16 @@ namespace Laba4
 
             char[] decoded = new char[s.Length];
 
-            for (int i = 0; i < s.Length; i++)
+            for (int i = 0; i < s.Length; i++)      // заполнение массива чаров 
             {
-                int t = (int)((byte)(s[i] - sh));
+                int t = (int)((byte)(s[i] - sh));   // перевод в порядок символа таблицы - сдвиг
 
-                if (t < 0) t += 255;
+                if (t < 0) t += 255;                // проверка на отрицательные значения 
 
-                decoded[i] = (char)t;
+                decoded[i] = (char)t;               // перевод в символ 
             }
 
-            for (int i = 0; i < s.Length; i++)
+            for (int i = 0; i < s.Length; i++)      // создание строки из чаров 
                 result = result + decoded[i];
 
             return result;
@@ -79,6 +80,9 @@ namespace Laba4
             string text = "";
 
             //Console.WriteLine(GenPassword());
+
+
+
 
             // ввод текста из файла оргинала
             using (StreamReader reader = new StreamReader(path_orig))
