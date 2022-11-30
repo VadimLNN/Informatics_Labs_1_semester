@@ -73,43 +73,36 @@ namespace Laba4
 
         static async Task Main(string[] args)
         {
+            string path_orig = "C:/Users/user/Desktop/HEI/Informatics/C#/Laba4/orig.txt";
+            string path_encoded = "C:/Users/user/Desktop/HEI/Informatics/C#/Laba4/encoded.txt";
+            string path_decoded = "C:/Users/user/Desktop/HEI/Informatics/C#/Laba4/decoded.txt";
+            string text = "";
+
             //Console.WriteLine(GenPassword());
 
-            // ввод текста 
-            //Console.WriteLine("Enter text:");
-            //string text = Console.ReadLine();
-
+            // ввод текста из файла оргинала
+            using (StreamReader reader = new StreamReader(path_orig))
+                text = await reader.ReadToEndAsync();
+            Console.WriteLine(text);
+            
             // ввод сдвига
-            //Console.Write("Enter shift:");
-            //int sh = int.Parse(Console.ReadLine());
-
-            // шифровка 
-            //string encoded = Encoded(text, sh);
-            // дешифровка
-            //string decoded = Decoded(encoded, sh);
-
-            // вывод
-            //Console.WriteLine(encoded);
-            //Console.WriteLine(decoded);
+            Console.Write("Enter shift:");
+            int sh = int.Parse(Console.ReadLine());
 
 
-
-            string path = "note1.txt";
-            // асинхронное чтение
-            using (StreamReader reader = new StreamReader(path))
-            {
-                string text = await reader.ReadToEndAsync();
-                Console.WriteLine(text);
-            }
+            // шифровка и запись в файл 
+            string encoded = Encoded(text, sh);
+            using (StreamWriter writer = new StreamWriter(path_encoded, false))
+                await writer.WriteLineAsync(encoded);
+            Console.WriteLine(encoded);
 
 
+            // дешифровка и запись в файл
+            string decoded = Decoded(encoded, sh);
+            using (StreamWriter writer = new StreamWriter(path_decoded, false))
+                await writer.WriteLineAsync(decoded);
+            Console.WriteLine(decoded);
 
-            string path = "C:/Users/user/Desktop/HEI/Informatics/C#/Laba4/encoded.txt";
-            string text = "Hello World\nHello METANIT.COM";
-
-            // полная перезапись файла 
-            using (StreamWriter writer = new StreamWriter(path, false))
-                await writer.WriteLineAsync(text);
 
             Console.ReadKey();
         }
