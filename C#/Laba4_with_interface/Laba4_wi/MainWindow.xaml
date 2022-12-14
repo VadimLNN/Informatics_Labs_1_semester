@@ -6,23 +6,23 @@
         xmlns:local="clr-namespace:Laba4_wi"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="805">
-    <Grid>
+    <Grid HorizontalAlignment="Right" Width="805">
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="Black" Offset="0.15"/>
-                <GradientStop Color="#FF21C513" Offset="1"/>
+                <GradientStop Color="Black" Offset="0.2"/>
+                <GradientStop Color="#FF38D223" Offset="0.8"/>
             </LinearGradientBrush>
         </Grid.Background>
         <Label Content="Laba4" HorizontalAlignment="Center" Height="52" Margin="0,29,0,0" VerticalAlignment="Top" Width="86" FontSize="28" Foreground="White"/>
         <TextBox x:Name="txbx_path" HorizontalAlignment="Left" Height="34" Margin="26,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="309"/>
         <Label Content="Path to file.txt " HorizontalAlignment="Left" Height="38" Margin="26,100,0,0" VerticalAlignment="Top" Width="231" Foreground="White" FontSize="20"/>
-        <Button x:Name="btn_read_file" Content="Content from file" HorizontalAlignment="Left" Height="34" Margin="26,198,0,0" VerticalAlignment="Top" Width="163" Foreground="White" FontSize="20" Click="btn_read_file_Click">
+        <Button x:Name="btn_read_file" Content="Content from file" HorizontalAlignment="Left" Height="34" Margin="26,215,0,0" VerticalAlignment="Top" Width="163" Foreground="White" FontSize="20" Click="btn_read_file_Click">
             <Button.Background>
                 <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
             </Button.Background>
         </Button>
-        <TextBox x:Name="txbx_file_content" HorizontalAlignment="Left" Height="111" Margin="26,252,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389"/>
-        <Button x:Name="btn_encoded" Content="Encoded" HorizontalAlignment="Left" Height="34" Margin="213,198,0,0" VerticalAlignment="Top" Width="90" Foreground="White" FontSize="20" Click="btn_encoded_ClickAsync">
+        <TextBox x:Name="txbx_file_content" HorizontalAlignment="Left" Height="111" Margin="26,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="389"/>
+        <Button x:Name="btn_encoded" Content="Encoded" HorizontalAlignment="Left" Height="34" Margin="212,215,0,0" VerticalAlignment="Top" Width="90" Foreground="White" FontSize="20" Click="btn_encoded_ClickAsync">
             <Button.Background>
                 <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
             </Button.Background>
@@ -36,14 +36,14 @@
         <TextBox x:Name="txbx_lenght" HorizontalAlignment="Left" Height="34" Margin="439,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="80"/>
         <TextBox x:Name="txbx_start" HorizontalAlignment="Left" Height="34" Margin="534,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="110"/>
         <TextBox x:Name="txbx_end" HorizontalAlignment="Left" Height="34" Margin="654,146,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="105"/>
-        <Label Content="Password" HorizontalAlignment="Left" Height="38" Margin="439,242,0,0" VerticalAlignment="Top" Width="231" Foreground="White" FontSize="20"/>
-        <TextBox x:Name="txbx_password" HorizontalAlignment="Left" Height="78" Margin="439,285,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320"/>
-        <Button x:Name="btn_create_pass" Content="Create password" HorizontalAlignment="Left" Height="34" Margin="439,198,0,0" VerticalAlignment="Top" Width="163" Foreground="White" FontSize="20" Click="btn_create_password">
+        <Label Content="Password" HorizontalAlignment="Left" Height="38" Margin="439,275,0,0" VerticalAlignment="Top" Width="231" Foreground="White" FontSize="20"/>
+        <TextBox x:Name="txbx_password" HorizontalAlignment="Left" Height="78" Margin="439,318,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="320"/>
+        <Button x:Name="btn_create_pass" Content="Create password" HorizontalAlignment="Left" Height="34" Margin="439,215,0,0" VerticalAlignment="Top" Width="163" Foreground="White" FontSize="20" Click="btn_create_password">
             <Button.Background>
                 <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
             </Button.Background>
         </Button>
-        <Button x:Name="btn_decoded" Content="Decoded" HorizontalAlignment="Left" Height="34" Margin="325,198,0,0" VerticalAlignment="Top" Width="90" Foreground="White" FontSize="20" Click="btn_decoded_ClickAsync">
+        <Button x:Name="btn_decoded" Content="Decoded" HorizontalAlignment="Left" Height="34" Margin="325,215,0,0" VerticalAlignment="Top" Width="90" Foreground="White" FontSize="20" Click="btn_decoded_ClickAsync">
             <Button.Background>
                 <SolidColorBrush Color="#FFDDDDDD" Opacity="0"/>
             </Button.Background>
